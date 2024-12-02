@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace Mastermind_PE
         string feedback = "";
         string[,] Historiek = new string[10, 5];
         private int score = 100;
+        string naam="";
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +42,15 @@ namespace Mastermind_PE
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += startcountdown;
+        }
+        private void startgame(object sender, RoutedEventArgs e)
+        {
+            naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker" );
+            while (string.IsNullOrEmpty(naam) )
+            {
+
+                naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker");
+            }
         }
         private void startcountdown(object sender, EventArgs e)
         {
@@ -233,7 +244,7 @@ namespace Mastermind_PE
         }
         private void Highscores_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"(naam) - {attempts} pogingen - {score}/100");
+            MessageBox.Show($"{naam} - {attempts} pogingen - {score}/100");
         }
 
         private void ResetGame()
@@ -242,6 +253,8 @@ namespace Mastermind_PE
             score = 100;
             attempts = 0;
             feedback = "";
+
+           
 
             // Genereer een nieuwe code
             GenerateRandomCode();
@@ -284,5 +297,7 @@ namespace Mastermind_PE
         {
             MessageBox.Show($"Aantal pogingen: {attempts}");
         }
+
+        
     }
 }
