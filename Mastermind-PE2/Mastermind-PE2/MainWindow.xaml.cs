@@ -33,7 +33,7 @@ namespace Mastermind_PE
         string[,] Historiek = new string[10, 5];
         private int score = 100;
         string naam="";
-        
+        int maxAttemps = 0;
         
         public MainWindow()
         {
@@ -55,7 +55,12 @@ namespace Mastermind_PE
                 naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker");
             }
 
-            
+            maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
+
+            while (maxAttemps < 3 || maxAttemps > 20)
+            {
+                maxAttemps = int.Parse(Interaction.InputBox("Hoeveel pogingen wil je hebben", "Aantal pogingen"));
+            }
         }
         private void startcountdown(object sender, EventArgs e)
         {
@@ -175,7 +180,7 @@ namespace Mastermind_PE
             score -= penalty;
 
             // Voeg poging toe aan de historiek
-            if (attempts <= 10)
+            if (attempts <= maxAttemps)
             {
                 Historiek[attempts - 1, 0] = Kleur1;
                 Historiek[attempts - 1, 1] = Kleur2;
@@ -203,7 +208,7 @@ namespace Mastermind_PE
                 
                 
             }
-            else if (attempts >= 10) // Maximaal aantal pogingen bereikt
+            else if (attempts >= maxAttemps) // Maximaal aantal pogingen bereikt
             {
                 timer.Stop();
                 MessageBox.Show($"Helaas! Je hebt de code niet gekraakt.\nDe juiste code was: {string.Join(", ", generatedCode)}", "spel verloren");
