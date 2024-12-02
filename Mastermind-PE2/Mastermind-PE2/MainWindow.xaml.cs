@@ -33,6 +33,7 @@ namespace Mastermind_PE
         string[,] Historiek = new string[10, 5];
         private int score = 100;
         string naam="";
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +47,8 @@ namespace Mastermind_PE
         private void startgame(object sender, RoutedEventArgs e)
         {
             naam = Interaction.InputBox("Wat is jouw naam?", "Naam gebruiker" );
+            
+
             while (string.IsNullOrEmpty(naam) )
             {
 
@@ -194,26 +197,20 @@ namespace Mastermind_PE
             if (feedback.Contains("J J J J")) // Code gekraakt
             {
                 timer.Stop();
-                if (MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!\nWil je opnieuw spelen?", "Spel gewonnen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Gefeliciteerd! Je hebt de code gekraakt!\nHet spel zal nu opnieuw beginnen", "Spel gewonnen") == MessageBoxResult.OK)
                 {
                     ResetGame();
                 }
-                else
-                {
-                    Close();
-                }
+                
             }
             else if (attempts >= 10) // Maximaal aantal pogingen bereikt
             {
                 timer.Stop();
-                if (MessageBox.Show($"Helaas! Je hebt de code niet gekraakt.\nDe juiste code was: {string.Join(", ", generatedCode)}\nWil je opnieuw spelen?", "Spel verloren", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Helaas! Je hebt de code niet gekraakt.\nDe juiste code was: {string.Join(", ", generatedCode)}\nHet spel zal nu opniew beginnen", "Spel verloren" ) == MessageBoxResult.OK)
                 {
                     ResetGame();
                 }
-                else
-                {
-                    Close();
-                }
+                
             }
         }
 
